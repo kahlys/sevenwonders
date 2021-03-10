@@ -34,22 +34,24 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
             ],
           ),
         ),
-        body: _playersListView(),
+        body: TabBarView(children: [
+          _playersListView(),
+          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerTotalView)),
+        ]),
       ),
     );
   }
 
   Widget _playersListView() {
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
-        child: ListView.builder(
-          itemCount: players.length,
-          itemBuilder: (context, index) {
-            return _playerItemView(index);
-          },
-        ),
-      ),
+      body: _listView(_playerView),
       floatingActionButton: new FloatingActionButton(
         backgroundColor: Colors.blue,
         onPressed: _addPlayerLayout,
@@ -58,23 +60,15 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     );
   }
 
-  Widget _playerItemView(int index) {
-    return Card(
-      child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-        title: Text('${players[index].name}'),
-        trailing: Wrap(
-          spacing: 12,
-          children: <Widget>[
-            // wonders name
-            IconButton(
-              icon: new Icon(Icons.close),
-              onPressed: () {
-                setState(() => players.removeAt(index));
-              },
-            ),
-          ],
-        ),
+// _listView display a player list with a function for all player list tile
+  Widget _listView(Widget Function(int) playerView) {
+    return new Container(
+      margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
+      child: ListView.builder(
+        itemCount: players.length,
+        itemBuilder: (context, index) {
+          return playerView(index);
+        },
       ),
     );
   }
@@ -98,6 +92,47 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
         );
       },
+    );
+  }
+
+  Widget _playerView(int index) {
+    return Card(
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+        title: Text('${players[index].name}'),
+        trailing: Wrap(
+          spacing: 12,
+          children: <Widget>[
+            IconButton(
+              icon: new Icon(Icons.close),
+              onPressed: () {
+                setState(() => players.removeAt(index));
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _playerTotalView(int index) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              title: new Text('${players[index].name}'),
+            ),
+            flex: 3,
+          ),
+          Expanded(
+            child: ListTile(
+              title: new Text('${players[index].totalScore()}'),
+            ),
+            flex: 1,
+          ),
+        ],
+      ),
     );
   }
 }
