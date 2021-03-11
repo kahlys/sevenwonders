@@ -1,6 +1,7 @@
 class Player {
   String? name;
   int warScore = 0;
+  int wonderScore = 0;
   ScoreMoney moneyScore = ScoreMoney();
 
   Player(String name) {
@@ -8,7 +9,7 @@ class Player {
   }
 
   int totalScore() {
-    return this.warScore + this.moneyScore.score();
+    return this.warScore + this.wonderScore + this.moneyScore.score();
   }
 }
 
