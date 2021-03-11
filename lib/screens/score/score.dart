@@ -40,9 +40,9 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           Scaffold(body: _listView(_playerMoneyView)),
           Scaffold(body: _listView(_playerWonderView)),
           Scaffold(body: _listView(_playerCivilianView)),
+          Scaffold(body: _listView(_playerCommerceView)),
           Scaffold(body: _listView(_playerTotalView)),
-          Scaffold(body: _listView(_playerTotalView)),
-          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerGuildeView)),
           Scaffold(body: _listView(_playerTotalView)),
         ]),
       ),
@@ -276,6 +276,80 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 onPressed: () {
                   setState(() {
                     p.civilianScore++;
+                  });
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+     Widget _playerCommerceView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.commerceScore--;
+                  });
+                },
+              ),
+              Text('${p.commerceScore}'),
+              IconButton(
+                icon: Icon(Icons.add_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.commerceScore++;
+                  });
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+     Widget _playerGuildeView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.guildeScore--;
+                  });
+                },
+              ),
+              Text('${p.guildeScore}'),
+              IconButton(
+                icon: Icon(Icons.add_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.guildeScore++;
                   });
                 },
               ),

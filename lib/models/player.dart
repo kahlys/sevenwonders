@@ -3,6 +3,8 @@ class Player {
   int warScore = 0;
   int wonderScore = 0;
   int civilianScore = 0;
+  int commerceScore = 0;
+  int guildeScore = 0;
   ScoreMoney moneyScore = ScoreMoney();
 
   Player(String name) {
@@ -13,6 +15,8 @@ class Player {
     return this.warScore +
         this.wonderScore +
         this.civilianScore +
+        this.commerceScore +
+        this.guildeScore +
         this.moneyScore.score();
   }
 }
