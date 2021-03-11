@@ -37,7 +37,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         body: TabBarView(children: [
           _playersListView(),
           Scaffold(body: _listView(_playerWarView)),
-          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerMoneyView)),
           Scaffold(body: _listView(_playerTotalView)),
           Scaffold(body: _listView(_playerTotalView)),
           Scaffold(body: _listView(_playerTotalView)),
@@ -165,6 +165,43 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 onPressed: () {
                   setState(() {
                     p.warScore++;
+                  });
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _playerMoneyView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.moneyScore.value--;
+                  });
+                },
+              ),
+              Text(p.moneyScore.value.toString()),
+              IconButton(
+                icon: Icon(Icons.add_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.moneyScore.value++;
                   });
                 },
               ),
