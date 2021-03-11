@@ -159,7 +159,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   });
                 },
               ),
-              Text(p.warScore.toString()),
+              Text('${p.warScore}'),
               IconButton(
                 icon: Icon(Icons.add_outlined, size: 15.0),
                 onPressed: () {
@@ -196,7 +196,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   });
                 },
               ),
-              Text(p.moneyScore.value.toString()),
+              Text('${p.moneyScore.value}'),
               IconButton(
                 icon: Icon(Icons.add_outlined, size: 15.0),
                 onPressed: () {
@@ -233,7 +233,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   });
                 },
               ),
-              Text(p.wonderScore.toString()),
+              Text('${p.wonderScore}'),
               IconButton(
                 icon: Icon(Icons.add_outlined, size: 15.0),
                 onPressed: () {
