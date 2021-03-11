@@ -43,7 +43,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           Scaffold(body: _listView(_playerCommerceView)),
           Scaffold(body: _listView(_playerTotalView)),
           Scaffold(body: _listView(_playerGuildeView)),
-          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listViewSorted(_playerTotalView)),
         ]),
       ),
     );
@@ -68,6 +68,28 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         itemCount: players.length,
         itemBuilder: (context, index) {
           return playerView(index, players[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _listViewSorted(Widget Function(int, Player) playerView) {
+    List<Player> playersSorted = new List.from(players);
+    playersSorted.sort((a, b) {
+      if (a.totalScore() < b.totalScore()) {
+        return 1;
+      } else if ((a.totalScore() > b.totalScore())) {
+        return -1;
+      } else {
+        return -Comparable.compare(a.moneyScore.value, b.moneyScore.value);
+      }
+    });
+    return new Container(
+      margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
+      child: ListView.builder(
+        itemCount: playersSorted.length,
+        itemBuilder: (context, index) {
+          return playerView(index, playersSorted[index]);
         },
       ),
     );
