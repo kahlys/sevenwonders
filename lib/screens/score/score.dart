@@ -234,7 +234,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     );
   }
 
-   Widget _playerWonderView(int i, Player p) {
+  Widget _playerWonderView(int i, Player p) {
     return new Card(
       child: Row(
         children: [
@@ -271,7 +271,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     );
   }
 
-   Widget _playerCivilianView(int i, Player p) {
+  Widget _playerCivilianView(int i, Player p) {
     return new Card(
       child: Row(
         children: [
@@ -308,7 +308,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     );
   }
 
-     Widget _playerCommerceView(int i, Player p) {
+  Widget _playerCommerceView(int i, Player p) {
     return new Card(
       child: Row(
         children: [
@@ -345,7 +345,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     );
   }
 
-     Widget _playerGuildeView(int i, Player p) {
+  Widget _playerGuildeView(int i, Player p) {
     return new Card(
       child: Row(
         children: [
