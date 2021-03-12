@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:sevenwonders/models/player.dart';
 
@@ -28,8 +29,8 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                     builder: (BuildContext context) {
                       return new AlertDialog(
                         title: new Text('Nouvelle partie'),
-                        content:
-                            new Text('Effacer les scores et recommencer une partie ?'),
+                        content: new Text(
+                            'Effacer les scores et recommencer une partie ?'),
                         actions: <Widget>[
                           new TextButton(
                               child: new Text('NON'),
@@ -71,7 +72,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           Scaffold(body: _listView(_playerWonderView)),
           Scaffold(body: _listView(_playerCivilianView)),
           Scaffold(body: _listView(_playerCommerceView)),
-          Scaffold(body: _listView(_playerTotalView)),
+          Scaffold(body: _listView(_playerScienceView)),
           Scaffold(body: _listView(_playerGuildeView)),
           Scaffold(body: _listViewSorted(_playerTotalView)),
         ]),
@@ -370,6 +371,99 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               ),
             ],
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _playerScienceView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: Container(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  controller: TextEditingController()..text = '${p.compass}',
+                  onChanged: (v) {
+                    setState(() {
+                      p.compass = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: Container(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  controller: TextEditingController()..text = '${p.gears}',
+                  onChanged: (v) {
+                    setState(() {
+                      p.gears = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: Container(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  controller: TextEditingController()..text = '${p.tablets}',
+                  onChanged: (v) {
+                    setState(() {
+                      p.tablets = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: Container(
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  controller: TextEditingController()..text = '${p.wilds}',
+                  onChanged: (v) {
+                    setState(() {
+                      p.wilds = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
