@@ -394,13 +394,17 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
+                  cursorWidth: 0,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   controller: TextEditingController()..text = '${p.compass}',
                   onChanged: (v) {
                     setState(() {
-                      p.compass = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                      p.compass = int.tryParse(v.length > 0
+                              ? v.replaceFirst("${p.compass}", "")
+                              : "0") ??
+                          p.compass;
                     });
                   },
                 ),
@@ -413,13 +417,17 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
+                  cursorWidth: 0,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   controller: TextEditingController()..text = '${p.gears}',
                   onChanged: (v) {
                     setState(() {
-                      p.gears = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                      p.gears = int.tryParse(v.length > 0
+                              ? v.replaceFirst("${p.gears}", "")
+                              : "0") ??
+                          p.gears;
                     });
                   },
                 ),
@@ -432,13 +440,17 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
+                  cursorWidth: 0,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   controller: TextEditingController()..text = '${p.tablets}',
                   onChanged: (v) {
                     setState(() {
-                      p.tablets = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                      p.tablets = int.tryParse(v.length > 0
+                              ? v.replaceFirst("${p.tablets}", "")
+                              : "0") ??
+                          p.tablets;
                     });
                   },
                 ),
@@ -451,13 +463,17 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
+                  cursorWidth: 0,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   controller: TextEditingController()..text = '${p.wilds}',
                   onChanged: (v) {
                     setState(() {
-                      p.wilds = int.tryParse(v.length > 0 ? v[0] : "0") ?? 0;
+                      p.wilds = int.tryParse(v.length > 0
+                              ? v.replaceFirst("${p.wilds}", "")
+                              : "0") ??
+                          p.wilds;
                     });
                   },
                 ),
