@@ -112,7 +112,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
       } else if ((a.totalScore() > b.totalScore())) {
         return -1;
       } else {
-        return -Comparable.compare(a.moneyScore.value, b.moneyScore.value);
+        return -Comparable.compare(a.money, b.money);
       }
     });
     return new Container(
@@ -245,16 +245,16 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 icon: Icon(Icons.remove_outlined, size: 15.0),
                 onPressed: () {
                   setState(() {
-                    p.moneyScore.value--;
+                    p.money--;
                   });
                 },
               ),
-              Text('${p.moneyScore.value}'),
+              Text('${p.money}'),
               IconButton(
                 icon: Icon(Icons.add_outlined, size: 15.0),
                 onPressed: () {
                   setState(() {
-                    p.moneyScore.value++;
+                    p.money++;
                   });
                 },
               ),

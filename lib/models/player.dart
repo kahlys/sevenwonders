@@ -4,12 +4,14 @@ import 'dart:ui';
 
 class Player {
   String? name;
+
   int warScore = 0;
   int wonderScore = 0;
   int civilianScore = 0;
   int commerceScore = 0;
   int guildeScore = 0;
-  ScoreMoney moneyScore = ScoreMoney();
+
+  int money = 0;
 
   // science
   int gears = 0;
@@ -27,8 +29,12 @@ class Player {
         this.civilianScore +
         this.commerceScore +
         this.guildeScore +
-        this.moneyScore.score() +
+        _moneyScore(this.money) +
         _scienceScore(this.wilds, this.compass, this.gears, this.tablets);
+  }
+
+  static int _moneyScore(int m) {
+    return m ~/ 3;
   }
 
   // _scienceScore calcultation according to wilds, compass, gears, and tablets.
@@ -40,13 +46,5 @@ class Player {
         max(_scienceScore(w - 1, c + 1, g, t),
             _scienceScore(w - 1, c, g + 1, t)),
         _scienceScore(w - 1, c, g, t + 1));
-  }
-}
-
-class ScoreMoney {
-  int value = 0;
-
-  int score() {
-    return this.value ~/ 3;
   }
 }
