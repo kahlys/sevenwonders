@@ -35,34 +35,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         appBar: AppBar(
           title: Text("Feuille des scores"),
           actions: <Widget>[
-            TextButton(
-                child: Icon(Icons.refresh, color: Colors.white),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return new AlertDialog(
-                        title: new Text('Nouvelle partie'),
-                        content: new Text(
-                            'Effacer les scores et recommencer une partie ?'),
-                        actions: <Widget>[
-                          new TextButton(
-                              child: new Text('NON'),
-                              onPressed: () => Navigator.of(context).pop()),
-                          new TextButton(
-                            child: Text("OUI"),
-                            onPressed: () {
-                              setState(() {
-                                players = [];
-                              });
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }),
+            _actionNewGame(context),
           ],
           bottom: TabBar(
             isScrollable: true,
@@ -73,6 +46,38 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           children: sections.values.toList(),
         ),
       ),
+    );
+  }
+
+  TextButton _actionNewGame(BuildContext context) {
+    return TextButton(
+      child: Icon(Icons.refresh, color: Colors.white),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return new AlertDialog(
+              title: new Text('Nouvelle partie'),
+              content:
+                  new Text('Effacer les scores et recommencer une partie ?'),
+              actions: <Widget>[
+                new TextButton(
+                    child: new Text('NON'),
+                    onPressed: () => Navigator.of(context).pop()),
+                new TextButton(
+                  child: Text("OUI"),
+                  onPressed: () {
+                    setState(() {
+                      players = [];
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 
