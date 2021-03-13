@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,8 +17,20 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
   @override
   Widget build(BuildContext context) {
+    LinkedHashMap<Widget, Widget> sections = LinkedHashMap.from({
+      Tab(text: "JOUEURS"): _playersListView(),
+      Tab(text: "MILITAIRE"): _listView(_playerWarView),
+      Tab(text: "MONNAIE"): _listView(_playerMoneyView),
+      Tab(text: "MERVEILLE"): _listView(_playerWonderView),
+      Tab(text: "CIVIL"): _listView(_playerCivilianView),
+      Tab(text: "COMMERCE"): _listView(_playerCommerceView),
+      Tab(text: "SCIENCE"): _listView(_playerScienceView),
+      Tab(text: "GUILDE"): _listView(_playerGuildeView),
+      Tab(text: "TOTAL"): _listViewSorted(_playerTotalView),
+    });
+
     return DefaultTabController(
-      length: 9,
+      length: sections.length,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Feuille des scores"),
@@ -52,30 +66,12 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ],
           bottom: TabBar(
             isScrollable: true,
-            tabs: [
-              Tab(text: "JOUEURS"),
-              Tab(text: "MILITAIRE"),
-              Tab(text: "MONNAIE"),
-              Tab(text: "MERVEILLE"),
-              Tab(text: "CIVIL"),
-              Tab(text: "COMMERCE"),
-              Tab(text: "SCIENCE"),
-              Tab(text: "GUILDE"),
-              Tab(text: "TOTAL"),
-            ],
+            tabs: sections.keys.toList(),
           ),
         ),
-        body: TabBarView(children: [
-          _playersListView(),
-          Scaffold(body: _listView(_playerWarView)),
-          Scaffold(body: _listView(_playerMoneyView)),
-          Scaffold(body: _listView(_playerWonderView)),
-          Scaffold(body: _listView(_playerCivilianView)),
-          Scaffold(body: _listView(_playerCommerceView)),
-          Scaffold(body: _listView(_playerScienceView)),
-          Scaffold(body: _listView(_playerGuildeView)),
-          Scaffold(body: _listViewSorted(_playerTotalView)),
-        ]),
+        body: TabBarView(
+          children: sections.values.toList(),
+        ),
       ),
     );
   }
