@@ -12,6 +12,7 @@ class Player {
   int guildeScore = 0;
 
   int money = 0;
+  int debt = 0;
 
   // science
   int gears = 0;
@@ -20,19 +21,22 @@ class Player {
   int wilds = 0;
 
   int leaders = 0;
+  int cities = 0;
 
   Player(String name) {
     this.name = name;
   }
 
-  int totalScore(bool leaders) {
+  int totalScore(bool leaders, cities) {
     return this.warScore +
         this.wonderScore +
         this.civilianScore +
         this.commerceScore +
         this.guildeScore +
         (leaders ? this.leaders : 0) +
+        (cities ? this.cities : 0) +
         _moneyScore(this.money) +
+        (cities ? this.debt : 0) +
         _scienceScore(this.wilds, this.compass, this.gears, this.tablets);
   }
 

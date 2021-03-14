@@ -16,6 +16,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   List<Player> players = [];
 
   bool exLeaders = false;
+  bool exCities = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +44,28 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   LinkedHashMap<Widget, Widget> _tabsSections() {
-    LinkedHashMap<Widget, Widget> sections = LinkedHashMap.from({
+    LinkedHashMap<Widget, Widget> sections = LinkedHashMap();
+    sections.addAll({
       Tab(text: "JOUEURS"): _playersListView(),
       Tab(text: "MILITAIRE"): _listView(_playerWarView),
       Tab(text: "MONNAIE"): _listView(_playerMoneyView),
+    });
+    if (this.exCities == true) {
+      sections[Tab(text: "DETTE")] = _listView(_playerDebtView);
+    }
+    sections.addAll({
       Tab(text: "MERVEILLE"): _listView(_playerWonderView),
       Tab(text: "CIVIL"): _listView(_playerCivilianView),
       Tab(text: "COMMERCE"): _listView(_playerCommerceView),
       Tab(text: "SCIENCE"): _listView(_playerScienceView),
       Tab(text: "GUILDE"): _listView(_playerGuildeView),
     });
-
     if (this.exLeaders == true) {
       sections[Tab(text: "LEADERS")] = _listView(_playerLeadersView);
     }
-
+    if (this.exCities == true) {
+      sections[Tab(text: "CITIES")] = _listView(_playerCitiesView);
+    }
     sections[Tab(text: "TOTAL")] = _listViewSorted(_playerTotalView);
 
     return sections;
@@ -87,6 +95,16 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   onChanged: (val) {
                     setState(() {
                       exLeaders = val ?? false;
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  title: Text("Cities"),
+                  value: this.exCities,
+                  // controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      exCities = val ?? false;
                     });
                   },
                 ),
@@ -157,8 +175,8 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   Widget _listViewSorted(Widget Function(int, Player) playerView) {
     List<Player> playersSorted = new List.from(players);
     playersSorted.sort((a, b) {
-      var ascore = a.totalScore(this.exLeaders);
-      var bscore = b.totalScore(this.exLeaders);
+      var ascore = a.totalScore(this.exLeaders, this.exCities);
+      var bscore = b.totalScore(this.exLeaders, this.exLeaders);
       if (ascore < bscore) {
         return 1;
       } else if (ascore > bscore) {
@@ -234,7 +252,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              title: new Text('${p.totalScore(this.exLeaders)}'),
+              title: new Text('${p.totalScore(this.exLeaders, this.exCities)}'),
             ),
             flex: 1,
           ),
@@ -601,6 +619,80 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 onPressed: () {
                   setState(() {
                     p.leaders++;
+                  });
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _playerCitiesView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.cities--;
+                  });
+                },
+              ),
+              Text('${p.cities}'),
+              IconButton(
+                icon: Icon(Icons.add_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.cities++;
+                  });
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _playerDebtView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.debt--;
+                  });
+                },
+              ),
+              Text('${p.debt}'),
+              IconButton(
+                icon: Icon(Icons.add_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.debt++;
                   });
                 },
               ),
