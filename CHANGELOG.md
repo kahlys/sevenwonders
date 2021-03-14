@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1] - 2021-03-14
+
+### Fixed
+
+- Guilde score when Armada is enabled.
+
 ## [1.0.0] - 2021-03-14
 
 ### Added
