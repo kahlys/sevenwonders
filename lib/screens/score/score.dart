@@ -15,23 +15,16 @@ class ScoreSheetPage extends StatefulWidget {
 class ScoreSheetPageState extends State<ScoreSheetPage> {
   List<Player> players = [];
 
+  bool exLeaders = false;
+
   @override
   Widget build(BuildContext context) {
-    LinkedHashMap<Widget, Widget> sections = LinkedHashMap.from({
-      Tab(text: "JOUEURS"): _playersListView(),
-      Tab(text: "MILITAIRE"): _listView(_playerWarView),
-      Tab(text: "MONNAIE"): _listView(_playerMoneyView),
-      Tab(text: "MERVEILLE"): _listView(_playerWonderView),
-      Tab(text: "CIVIL"): _listView(_playerCivilianView),
-      Tab(text: "COMMERCE"): _listView(_playerCommerceView),
-      Tab(text: "SCIENCE"): _listView(_playerScienceView),
-      Tab(text: "GUILDE"): _listView(_playerGuildeView),
-      Tab(text: "TOTAL"): _listViewSorted(_playerTotalView),
-    });
+    var sections = _tabsSections();
 
     return DefaultTabController(
       length: sections.length,
       child: Scaffold(
+        drawer: _drawer(),
         appBar: AppBar(
           title: Text("Feuille des scores"),
           actions: <Widget>[
@@ -44,6 +37,62 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         ),
         body: TabBarView(
           children: sections.values.toList(),
+        ),
+      ),
+    );
+  }
+
+  LinkedHashMap<Widget, Widget> _tabsSections() {
+    LinkedHashMap<Widget, Widget> sections = LinkedHashMap.from({
+      Tab(text: "JOUEURS"): _playersListView(),
+      Tab(text: "MILITAIRE"): _listView(_playerWarView),
+      Tab(text: "MONNAIE"): _listView(_playerMoneyView),
+      Tab(text: "MERVEILLE"): _listView(_playerWonderView),
+      Tab(text: "CIVIL"): _listView(_playerCivilianView),
+      Tab(text: "COMMERCE"): _listView(_playerCommerceView),
+      Tab(text: "SCIENCE"): _listView(_playerScienceView),
+      Tab(text: "GUILDE"): _listView(_playerGuildeView),
+    });
+
+    if (this.exLeaders == true) {
+      sections[Tab(text: "LEADERS")] = _listView(_playerLeadersView);
+    }
+
+    sections[Tab(text: "TOTAL")] = _listViewSorted(_playerTotalView);
+
+    return sections;
+  }
+
+  Drawer _drawer() {
+    return Drawer(
+      child: new Container(
+        padding: EdgeInsets.zero,
+        child: new Column(
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                'Extensions'.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              onTap: null,
+            ),
+            Column(
+              children: <Widget>[
+                CheckboxListTile(
+                  title: Text("Leaders"),
+                  value: this.exLeaders,
+                  // controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      exLeaders = val ?? false;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -108,9 +157,11 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   Widget _listViewSorted(Widget Function(int, Player) playerView) {
     List<Player> playersSorted = new List.from(players);
     playersSorted.sort((a, b) {
-      if (a.totalScore() < b.totalScore()) {
+      var ascore = a.totalScore(this.exLeaders);
+      var bscore = b.totalScore(this.exLeaders);
+      if (ascore < bscore) {
         return 1;
-      } else if ((a.totalScore() > b.totalScore())) {
+      } else if (ascore > bscore) {
         return -1;
       } else {
         return -Comparable.compare(a.money, b.money);
@@ -183,7 +234,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              title: new Text('${p.totalScore()}'),
+              title: new Text('${p.totalScore(this.exLeaders)}'),
             ),
             flex: 1,
           ),
@@ -513,6 +564,43 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 onPressed: () {
                   setState(() {
                     p.guildeScore++;
+                  });
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _playerLeadersView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.leaders--;
+                  });
+                },
+              ),
+              Text('${p.leaders}'),
+              IconButton(
+                icon: Icon(Icons.add_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.leaders++;
                   });
                 },
               ),

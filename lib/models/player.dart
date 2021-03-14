@@ -19,16 +19,19 @@ class Player {
   int tablets = 0;
   int wilds = 0;
 
+  int leaders = 0;
+
   Player(String name) {
     this.name = name;
   }
 
-  int totalScore() {
+  int totalScore(bool leaders) {
     return this.warScore +
         this.wonderScore +
         this.civilianScore +
         this.commerceScore +
         this.guildeScore +
+        (leaders ? this.leaders : 0) +
         _moneyScore(this.money) +
         _scienceScore(this.wilds, this.compass, this.gears, this.tablets);
   }
