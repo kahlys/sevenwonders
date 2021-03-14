@@ -1,10 +1,12 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:sevenwonders/models/player.dart';
 import 'package:sevenwonders/components/selector.dart';
+import 'package:sevenwonders/components/list_tile.dart';
 
 class ScoreSheetPage extends StatefulWidget {
   final String title = "Score Sheet";
@@ -312,122 +314,71 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerWarView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-           NumberSelector(
-            value: p.warScore,
-            onChange: (v) {
-              setState(() {
-                p.warScore = v!;
-              });
-            },
-          ),
-        ],
+   return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.warScore,
+        onChange: (v) {
+          setState(() {
+            p.warScore = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerMoneyView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-           NumberSelector(
-            value: p.money,
-            onChange: (v) {
-              setState(() {
-                p.money = v!;
-              });
-            },
-          ),
-        ],
+    return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.money,
+        onChange: (v) {
+          setState(() {
+            p.money = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerWonderView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.wonderScore,
-            onChange: (v) {
-              setState(() {
-                p.wonderScore = v!;
-              });
-            },
-          ),
-        ],
+    return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.wonderScore,
+        onChange: (v) {
+          setState(() {
+            p.wonderScore = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerCivilianView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.civilianScore,
-            onChange: (v) {
-              setState(() {
-                p.civilianScore = v!;
-              });
-            },
-          ),
-        ],
+     return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.civilianScore,
+        onChange: (v) {
+          setState(() {
+            p.civilianScore = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerCommerceView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.commerceScore,
-            onChange: (v) {
-              setState(() {
-                p.commerceScore = v!;
-              });
-            },
-          ),
-        ],
+     return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.commerceScore,
+        onChange: (v) {
+          setState(() {
+            p.commerceScore = v!;
+          });
+        },
       ),
     );
   }
@@ -542,123 +493,81 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerGuildeView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.guildeScore,
-            onChange: (v) {
-              setState(() {
-                p.guildeScore = v!;
-              });
-            },
-          ),
-        ],
+    int max = 999;
+    if (this.exArmada) {
+      max = 10;
+      p.guildeScore = min(p.guildeScore, 10);
+    }
+    return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.guildeScore,
+        max: max,
+        onChange: (v) {
+          setState(() {
+            p.guildeScore = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerLeadersView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.leaders,
-            onChange: (v) {
-              setState(() {
-                p.leaders = v!;
-              });
-            },
-          ),
-        ],
+    return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.leaders,
+        onChange: (v) {
+          setState(() {
+            p.leaders = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerCitiesView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.cities,
-            onChange: (v) {
-              setState(() {
-                p.cities = v!;
-              });
-            },
-          ),
-        ],
+    return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.cities,
+        onChange: (v) {
+          setState(() {
+            p.cities = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerDebtView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.debt,
-            onChange: (v) {
-              setState(() {
-                p.debt = v!;
-              });
-            },
-          ),
-        ],
+    if (p.debt > 0) p.debt = 0;
+    return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.debt,
+        max: 0,
+        min: -100,
+        onChange: (v) {
+          setState(() {
+            p.debt = v!;
+          });
+        },
       ),
     );
   }
 
   Widget _playerArmadaView(int i, Player p) {
-    return new Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-          ),
-          NumberSelector(
-            value: p.armada,
-            onChange: (v) {
-              setState(() {
-                p.armada = v!;
-              });
-            },
-          ),
-        ],
+    return new ListTilePlayerWithNumberSelector(
+      playerName: p.name!,
+      selector: NumberSelector(
+        value: p.armada,
+        onChange: (v) {
+          setState(() {
+            p.armada = v!;
+          });
+        },
       ),
     );
   }
 }
-
