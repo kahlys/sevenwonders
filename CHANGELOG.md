@@ -1,8 +1,16 @@
 # Changelog
 
-## [1.0.1] - 2021-03-14
+## [1.0.2] - 2021-03-14
+
+### Changed
+
+- Score sheet design.
 
 ### Fixed
+
+- Maximum and minimum possible scores.
+
+## [1.0.1] - 2021-03-14
 
 - Guilde score when Armada is enabled.
 
