@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:sevenwonders/models/player.dart';
+import 'package:sevenwonders/components/selector.dart';
 
 class ScoreSheetPage extends StatefulWidget {
   final String title = "Score Sheet";
@@ -321,27 +322,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.warScore--;
-                  });
-                },
-              ),
-              Text('${p.warScore}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.warScore++;
-                  });
-                },
-              ),
-            ],
-          )
+           NumberSelector(
+            value: p.warScore,
+            onChange: (v) {
+              setState(() {
+                p.warScore = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -358,27 +346,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.money--;
-                  });
-                },
-              ),
-              Text('${p.money}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.money++;
-                  });
-                },
-              ),
-            ],
-          )
+           NumberSelector(
+            value: p.money,
+            onChange: (v) {
+              setState(() {
+                p.money = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -395,27 +370,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.wonderScore--;
-                  });
-                },
-              ),
-              Text('${p.wonderScore}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.wonderScore++;
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.wonderScore,
+            onChange: (v) {
+              setState(() {
+                p.wonderScore = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -426,33 +388,21 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
       child: Row(
         children: [
           Expanded(
+            flex: 2,
             child: ListTile(
               contentPadding:
                   EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.civilianScore--;
-                  });
-                },
-              ),
-              Text('${p.civilianScore}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.civilianScore++;
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.civilianScore,
+            onChange: (v) {
+              setState(() {
+                p.civilianScore = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -469,27 +419,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.commerceScore--;
-                  });
-                },
-              ),
-              Text('${p.commerceScore}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.commerceScore++;
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.commerceScore,
+            onChange: (v) {
+              setState(() {
+                p.commerceScore = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -615,30 +552,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.guildeScore--;
-                  });
-                },
-              ),
-              Text('${p.guildeScore}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.guildeScore++;
-                    if (this.exArmada && p.guildeScore > 10) {
-                      p.guildeScore = 10;
-                    }
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.guildeScore,
+            onChange: (v) {
+              setState(() {
+                p.guildeScore = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -655,27 +576,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.leaders--;
-                  });
-                },
-              ),
-              Text('${p.leaders}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.leaders++;
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.leaders,
+            onChange: (v) {
+              setState(() {
+                p.leaders = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -692,27 +600,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.cities--;
-                  });
-                },
-              ),
-              Text('${p.cities}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.cities++;
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.cities,
+            onChange: (v) {
+              setState(() {
+                p.cities = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -729,27 +624,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.debt--;
-                  });
-                },
-              ),
-              Text('${p.debt}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.debt++;
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.debt,
+            onChange: (v) {
+              setState(() {
+                p.debt = v!;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -766,29 +648,17 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               title: new Text('${p.name}'),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.armada--;
-                  });
-                },
-              ),
-              Text('${p.armada}'),
-              IconButton(
-                icon: Icon(Icons.add_outlined, size: 15.0),
-                onPressed: () {
-                  setState(() {
-                    p.armada++;
-                  });
-                },
-              ),
-            ],
-          )
+          NumberSelector(
+            value: p.armada,
+            onChange: (v) {
+              setState(() {
+                p.armada = v!;
+              });
+            },
+          ),
         ],
       ),
     );
   }
 }
+
