@@ -80,7 +80,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   Drawer _drawer() {
     return Drawer(
       child: new Container(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(top:50),
         child: new Column(
           children: <Widget>[
             ListTile(
@@ -97,7 +97,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 CheckboxListTile(
                   title: Text("Leaders"),
                   value: this.exLeaders,
-                  // controlAffinity: ListTileControlAffinity.leading,
                   onChanged: (val) {
                     setState(() {
                       exLeaders = val ?? false;
@@ -107,7 +106,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 CheckboxListTile(
                   title: Text("Cities"),
                   value: this.exCities,
-                  // controlAffinity: ListTileControlAffinity.leading,
                   onChanged: (val) {
                     setState(() {
                       exCities = val ?? false;
@@ -117,7 +115,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 CheckboxListTile(
                   title: Text("Armada"),
                   value: this.exArmada,
-                  // controlAffinity: ListTileControlAffinity.leading,
                   onChanged: (val) {
                     setState(() {
                       this.exArmada = val ?? false;
@@ -203,16 +200,14 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         itemBuilder: (context, index) {
           if (index == 0) {
             return Container(
-              child:  Row(
-                  children: [
-                    Spacer(flex: 2),
-                    Expanded(
-                        child: Text("compas", textAlign: TextAlign.center)),
-                    Expanded(child: Text("roue", textAlign: TextAlign.center)),
-                    Expanded(
-                        child: Text("pierre", textAlign: TextAlign.center)),
-                    Expanded(child: Text("bonus", textAlign: TextAlign.center)),
-                  ],
+              child: Row(
+                children: [
+                  Spacer(flex: 2),
+                  Expanded(child: Text("compas", textAlign: TextAlign.center)),
+                  Expanded(child: Text("roue", textAlign: TextAlign.center)),
+                  Expanded(child: Text("pierre", textAlign: TextAlign.center)),
+                  Expanded(child: Text("bonus", textAlign: TextAlign.center)),
+                ],
               ),
             );
           }
