@@ -17,6 +17,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
   bool exLeaders = false;
   bool exCities = false;
+  bool exArmada = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +67,10 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     if (this.exCities == true) {
       sections[Tab(text: "CITIES")] = _listView(_playerCitiesView);
     }
+    if (this.exArmada == true) {
+      sections[Tab(text: "ARMADA")] = _listView(_playerArmadaView);
+    }
     sections[Tab(text: "TOTAL")] = _listViewSorted(_playerTotalView);
-
     return sections;
   }
 
@@ -105,6 +108,16 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   onChanged: (val) {
                     setState(() {
                       exCities = val ?? false;
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  title: Text("Armada"),
+                  value: this.exArmada,
+                  // controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (val) {
+                    setState(() {
+                      this.exArmada = val ?? false;
                     });
                   },
                 ),
@@ -175,8 +188,8 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   Widget _listViewSorted(Widget Function(int, Player) playerView) {
     List<Player> playersSorted = new List.from(players);
     playersSorted.sort((a, b) {
-      var ascore = a.totalScore(this.exLeaders, this.exCities);
-      var bscore = b.totalScore(this.exLeaders, this.exLeaders);
+      var ascore = a.totalScore(this.exLeaders, this.exCities, this.exArmada);
+      var bscore = b.totalScore(this.exLeaders, this.exLeaders, this.exArmada);
       if (ascore < bscore) {
         return 1;
       } else if (ascore > bscore) {
@@ -239,6 +252,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerTotalView(int i, Player p) {
+    var score = p.totalScore(this.exLeaders, this.exCities, this.exArmada);
     return new Card(
       child: Row(
         children: [
@@ -252,7 +266,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              title: new Text('${p.totalScore(this.exLeaders, this.exCities)}'),
+              title: new Text('$score'),
             ),
             flex: 1,
           ),
@@ -582,6 +596,9 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 onPressed: () {
                   setState(() {
                     p.guildeScore++;
+                    if (this.exArmada && p.guildeScore > 10) {
+                      p.guildeScore = 10;
+                    }
                   });
                 },
               ),
@@ -693,6 +710,43 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                 onPressed: () {
                   setState(() {
                     p.debt++;
+                  });
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _playerArmadaView(int i, Player p) {
+    return new Card(
+      child: Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+              title: new Text('${p.name}'),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.armada--;
+                  });
+                },
+              ),
+              Text('${p.armada}'),
+              IconButton(
+                icon: Icon(Icons.add_outlined, size: 15.0),
+                onPressed: () {
+                  setState(() {
+                    p.armada++;
                   });
                 },
               ),

@@ -22,22 +22,25 @@ class Player {
 
   int leaders = 0;
   int cities = 0;
+  int armada = 0;
 
   Player(String name) {
     this.name = name;
   }
 
-  int totalScore(bool leaders, cities) {
-    return this.warScore +
+  int totalScore(bool leaders, cities, armada) {
+    var total = this.warScore +
         this.wonderScore +
         this.civilianScore +
         this.commerceScore +
-        this.guildeScore +
+        (armada ? max(10, this.guildeScore) : this.guildeScore) +
         (leaders ? this.leaders : 0) +
         (cities ? this.cities : 0) +
         _moneyScore(this.money) +
         (cities ? this.debt : 0) +
+        (armada ? this.armada : 0) +
         _scienceScore(this.wilds, this.compass, this.gears, this.tablets);
+    return total as int;
   }
 
   static int _moneyScore(int m) {
