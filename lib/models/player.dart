@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'dart:ui';
-
 class Player {
   String? name;
 
@@ -33,7 +31,7 @@ class Player {
         this.wonderScore +
         this.civilianScore +
         this.commerceScore +
-        (armada ? max(10, this.guildeScore) : this.guildeScore) +
+        (armada ? min(10, this.guildeScore) : this.guildeScore) +
         (leaders ? this.leaders : 0) +
         (cities ? this.cities : 0) +
         _moneyScore(this.money) +
