@@ -323,6 +323,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
       playerName: p.name!,
       selector: NumberSelector(
         value: p.warScore,
+        min: -50,
         onChange: (v) {
           setState(() {
             p.warScore = v!;
