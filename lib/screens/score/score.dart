@@ -58,7 +58,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
       Tab(text: "MERVEILLE"): _listView(_playerWonderView),
       Tab(text: "CIVIL"): _listView(_playerCivilianView),
       Tab(text: "COMMERCE"): _listView(_playerCommerceView),
-      Tab(text: "SCIENCE"): _listView(_playerScienceView),
+      Tab(text: "SCIENCE"): _listViewScience(_playerScienceView),
       Tab(text: "GUILDE"): _listView(_playerGuildeView),
     });
     if (this.exLeaders == true) {
@@ -180,6 +180,32 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         itemCount: players.length,
         itemBuilder: (context, index) {
           return playerView(index, players[index]);
+        },
+      ),
+    );
+  }
+
+  // _listView display a player list with a function for all player list tile
+  Widget _listViewScience(Widget Function(int, Player) playerView) {
+    return new Container(
+      margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
+      child: ListView.builder(
+        itemCount: players.length+1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                Spacer(flex:2),
+                Expanded(flex:1, child: Text("compas",textAlign: TextAlign.center)),
+                Expanded(flex:1, child: Text("roue",textAlign: TextAlign.center)),
+                Expanded(flex:1, child: Text("pierre",textAlign: TextAlign.center)),
+                Expanded(flex:1, child: Text("bonus",textAlign: TextAlign.center)),
+              ],),
+            );
+          }
+          return playerView(index-1, players[index-1]);
         },
       ),
     );
