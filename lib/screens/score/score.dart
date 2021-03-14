@@ -190,22 +190,31 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     return new Container(
       margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
       child: ListView.builder(
-        itemCount: players.length+1,
+        itemCount: players.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
-                Spacer(flex:2),
-                Expanded(flex:1, child: Text("compas",textAlign: TextAlign.center)),
-                Expanded(flex:1, child: Text("roue",textAlign: TextAlign.center)),
-                Expanded(flex:1, child: Text("pierre",textAlign: TextAlign.center)),
-                Expanded(flex:1, child: Text("bonus",textAlign: TextAlign.center)),
-              ],),
+                  Spacer(flex: 2),
+                  Expanded(
+                      flex: 1,
+                      child: Text("compas", textAlign: TextAlign.center)),
+                  Expanded(
+                      flex: 1,
+                      child: Text("roue", textAlign: TextAlign.center)),
+                  Expanded(
+                      flex: 1,
+                      child: Text("pierre", textAlign: TextAlign.center)),
+                  Expanded(
+                      flex: 1,
+                      child: Text("bonus", textAlign: TextAlign.center)),
+                ],
+              ),
             );
           }
-          return playerView(index-1, players[index-1]);
+          return playerView(index - 1, players[index - 1]);
         },
       ),
     );
