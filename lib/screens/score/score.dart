@@ -177,9 +177,12 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
 // _listView display a player list with a function for all player list tile
   Widget _listView(Widget Function(int, Player) playerView) {
-    return new Container(
+    return new Card(
       margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+          color: Colors.black12,
+        ),
         itemCount: players.length,
         itemBuilder: (context, index) {
           return playerView(index, players[index]);
@@ -190,30 +193,26 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
   // _listView display a player list with a function for all player list tile
   Widget _listViewScience(Widget Function(int, Player) playerView) {
-    return new Container(
-      margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
-      child: ListView.builder(
+    return new Card(
+      margin: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+      child: ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+          color: Colors.black12,
+        ),
         itemCount: players.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: [
-                  Spacer(flex: 2),
-                  Expanded(
-                      flex: 1,
-                      child: Text("compas", textAlign: TextAlign.center)),
-                  Expanded(
-                      flex: 1,
-                      child: Text("roue", textAlign: TextAlign.center)),
-                  Expanded(
-                      flex: 1,
-                      child: Text("pierre", textAlign: TextAlign.center)),
-                  Expanded(
-                      flex: 1,
-                      child: Text("bonus", textAlign: TextAlign.center)),
-                ],
+            return Container(
+              child:  Row(
+                  children: [
+                    Spacer(flex: 2),
+                    Expanded(
+                        child: Text("compas", textAlign: TextAlign.center)),
+                    Expanded(child: Text("roue", textAlign: TextAlign.center)),
+                    Expanded(
+                        child: Text("pierre", textAlign: TextAlign.center)),
+                    Expanded(child: Text("bonus", textAlign: TextAlign.center)),
+                  ],
               ),
             );
           }
@@ -236,9 +235,12 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         return -Comparable.compare(a.money, b.money);
       }
     });
-    return new Container(
+    return new Card(
       margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+          color: Colors.black12,
+        ),
         itemCount: playersSorted.length,
         itemBuilder: (context, index) {
           return playerView(index, playersSorted[index]);
@@ -270,7 +272,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerView(int index, Player player) {
-    return Card(
+    return Container(
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
         title: Text('${players[index].name}'),
@@ -291,7 +293,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
   Widget _playerTotalView(int i, Player p) {
     var score = p.totalScore(this.exLeaders, this.exCities, this.exArmada);
-    return new Card(
+    return new Container(
       child: Row(
         children: [
           Expanded(
@@ -304,7 +306,10 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              title: new Text('$score'),
+              title: new Text(
+                '$score',
+                textAlign: TextAlign.center,
+              ),
             ),
             flex: 1,
           ),
@@ -314,7 +319,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerWarView(int i, Player p) {
-   return new ListTilePlayerWithNumberSelector(
+    return new ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.warScore,
@@ -356,7 +361,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerCivilianView(int i, Player p) {
-     return new ListTilePlayerWithNumberSelector(
+    return new ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.civilianScore,
@@ -370,7 +375,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerCommerceView(int i, Player p) {
-     return new ListTilePlayerWithNumberSelector(
+    return new ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.commerceScore,
@@ -384,7 +389,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerScienceView(int i, Player p) {
-    return new Card(
+    return new Container(
       child: Row(
         children: [
           Expanded(
@@ -397,8 +402,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
                   cursorWidth: 0,
@@ -420,8 +423,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
                   cursorWidth: 0,
@@ -443,8 +444,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
                   cursorWidth: 0,
@@ -466,8 +465,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
           ),
           Expanded(
             child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
               title: Container(
                 child: TextField(
                   cursorWidth: 0,

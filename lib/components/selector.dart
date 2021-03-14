@@ -25,7 +25,7 @@ class NumberSelector extends StatelessWidget {
       value: this.value,
       minValue: this.min ?? 0,
       maxValue: this.max ?? 999,
-      textStyle: TextStyle(fontSize: 13, color: Colors.black.withOpacity(0.6)),
+      textStyle: TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.5)),
       selectedTextStyle: TextStyle(fontSize: 16),
       itemWidth: 50,
       decoration: BoxDecoration(
