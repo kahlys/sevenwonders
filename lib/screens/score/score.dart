@@ -80,7 +80,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   Drawer _drawer() {
     return Drawer(
       child: new Container(
-        padding: EdgeInsets.only(top:50),
+        padding: EdgeInsets.only(top: 50),
         child: new Column(
           children: <Widget>[
             ListTile(
