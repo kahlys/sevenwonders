@@ -165,7 +165,6 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
     return Scaffold(
       body: _listView(_playerView),
       floatingActionButton: new FloatingActionButton(
-        backgroundColor: Colors.blue,
         onPressed: _addPlayerLayout,
         child: new Icon(Icons.add),
       ),
