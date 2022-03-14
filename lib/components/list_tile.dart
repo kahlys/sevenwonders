@@ -7,7 +7,7 @@ class ListTilePlayerWithNumberSelector extends StatelessWidget {
     Key? key,
     required this.playerName,
     required this.selector,
-  })   : assert(playerName.length > 0),
+  })  : assert(playerName.length > 0),
         super(key: key);
 
   final String playerName;
@@ -16,19 +16,17 @@ class ListTilePlayerWithNumberSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${this.playerName}'),
-            ),
+    return Row(
+      children: [
+        Expanded(
+          child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+            title: Text(playerName),
           ),
-          selector,
-        ],
-      ),
+        ),
+        selector,
+      ],
     );
   }
 }

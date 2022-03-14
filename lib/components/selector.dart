@@ -22,11 +22,11 @@ class NumberSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NumberPicker(
-      value: this.value,
-      minValue: this.min ?? 0,
-      maxValue: this.max ?? 999,
+      value: value,
+      minValue: min ?? 0,
+      maxValue: max ?? 999,
       textStyle: TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.5)),
-      selectedTextStyle: TextStyle(fontSize: 16),
+      selectedTextStyle: const TextStyle(fontSize: 16),
       itemWidth: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
