@@ -11,6 +11,8 @@ import 'package:sevenwonders/components/list_tile.dart';
 class ScoreSheetPage extends StatefulWidget {
   final String title = "Score Sheet";
 
+  const ScoreSheetPage({Key? key}) : super(key: key);
+
   @override
   ScoreSheetPageState createState() => ScoreSheetPageState();
 }
@@ -31,7 +33,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
       child: Scaffold(
         drawer: _drawer(),
         appBar: AppBar(
-          title: Text("Feuille des scores"),
+          title: const Text("Feuille des scores"),
           actions: <Widget>[
             _actionNewGame(context),
           ],
@@ -50,43 +52,43 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   LinkedHashMap<Widget, Widget> _tabsSections() {
     LinkedHashMap<Widget, Widget> sections = LinkedHashMap();
     sections.addAll({
-      Tab(text: "JOUEURS"): _playersListView(),
-      Tab(text: "MILITAIRE"): _listView(_playerWarView),
-      Tab(text: "MONNAIE"): _listView(_playerMoneyView),
+      const Tab(text: "JOUEURS"): _playersListView(),
+      const Tab(text: "MILITAIRE"): _listView(_playerWarView),
+      const Tab(text: "MONNAIE"): _listView(_playerMoneyView),
     });
-    if (this.exCities == true) {
-      sections[Tab(text: "DETTE")] = _listView(_playerDebtView);
+    if (exCities == true) {
+      sections[const Tab(text: "DETTE")] = _listView(_playerDebtView);
     }
     sections.addAll({
-      Tab(text: "MERVEILLE"): _listView(_playerWonderView),
-      Tab(text: "CIVIL"): _listView(_playerCivilianView),
-      Tab(text: "COMMERCE"): _listView(_playerCommerceView),
-      Tab(text: "SCIENCE"): _listViewScience(_playerScienceView),
-      Tab(text: "GUILDE"): _listView(_playerGuildeView),
+      const Tab(text: "MERVEILLE"): _listView(_playerWonderView),
+      const Tab(text: "CIVIL"): _listView(_playerCivilianView),
+      const Tab(text: "COMMERCE"): _listView(_playerCommerceView),
+      const Tab(text: "SCIENCE"): _listViewScience(_playerScienceView),
+      const Tab(text: "GUILDE"): _listView(_playerGuildeView),
     });
-    if (this.exLeaders == true) {
-      sections[Tab(text: "LEADERS")] = _listView(_playerLeadersView);
+    if (exLeaders == true) {
+      sections[const Tab(text: "LEADERS")] = _listView(_playerLeadersView);
     }
-    if (this.exCities == true) {
-      sections[Tab(text: "CITIES")] = _listView(_playerCitiesView);
+    if (exCities == true) {
+      sections[const Tab(text: "CITIES")] = _listView(_playerCitiesView);
     }
-    if (this.exArmada == true) {
-      sections[Tab(text: "ARMADA")] = _listView(_playerArmadaView);
+    if (exArmada == true) {
+      sections[const Tab(text: "ARMADA")] = _listView(_playerArmadaView);
     }
-    sections[Tab(text: "TOTAL")] = _listViewSorted(_playerTotalView);
+    sections[const Tab(text: "TOTAL")] = _listViewSorted(_playerTotalView);
     return sections;
   }
 
   Drawer _drawer() {
     return Drawer(
-      child: new Container(
-        padding: EdgeInsets.only(top: 50),
-        child: new Column(
+      child: Container(
+        padding: const EdgeInsets.only(top: 50),
+        child: Column(
           children: <Widget>[
             ListTile(
               title: Text(
                 'Extensions'.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                 ),
               ),
@@ -95,8 +97,8 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
             Column(
               children: <Widget>[
                 CheckboxListTile(
-                  title: Text("Leaders"),
-                  value: this.exLeaders,
+                  title: const Text("Leaders"),
+                  value: exLeaders,
                   onChanged: (val) {
                     setState(() {
                       exLeaders = val ?? false;
@@ -104,8 +106,8 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   },
                 ),
                 CheckboxListTile(
-                  title: Text("Cities"),
-                  value: this.exCities,
+                  title: const Text("Cities"),
+                  value: exCities,
                   onChanged: (val) {
                     setState(() {
                       exCities = val ?? false;
@@ -113,11 +115,11 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
                   },
                 ),
                 CheckboxListTile(
-                  title: Text("Armada"),
-                  value: this.exArmada,
+                  title: const Text("Armada"),
+                  value: exArmada,
                   onChanged: (val) {
                     setState(() {
-                      this.exArmada = val ?? false;
+                      exArmada = val ?? false;
                     });
                   },
                 ),
@@ -131,21 +133,21 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
   TextButton _actionNewGame(BuildContext context) {
     return TextButton(
-      child: Icon(Icons.refresh, color: Colors.white),
+      child: const Icon(Icons.refresh, color: Colors.white),
       onPressed: () {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return new AlertDialog(
-              title: new Text('Nouvelle partie'),
+            return AlertDialog(
+              title: const Text('Nouvelle partie'),
               content:
-                  new Text('Effacer les scores et recommencer une partie ?'),
+                  const Text('Effacer les scores et recommencer une partie ?'),
               actions: <Widget>[
-                new TextButton(
-                    child: new Text('NON'),
+                TextButton(
+                    child: const Text('NON'),
                     onPressed: () => Navigator.of(context).pop()),
-                new TextButton(
-                  child: Text("OUI"),
+                TextButton(
+                  child: const Text("OUI"),
                   onPressed: () {
                     setState(() {
                       players = [];
@@ -164,19 +166,19 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   Widget _playersListView() {
     return Scaffold(
       body: _listView(_playerView),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _addPlayerLayout,
-        child: new Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
 
 // _listView display a player list with a function for all player list tile
   Widget _listView(Widget Function(int, Player) playerView) {
-    return new Card(
+    return Card(
       margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
       child: ListView.separated(
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black12,
         ),
         itemCount: players.length,
@@ -189,25 +191,23 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
   // _listView display a player list with a function for all player list tile
   Widget _listViewScience(Widget Function(int, Player) playerView) {
-    return new Card(
+    return Card(
       margin: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
       child: ListView.separated(
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black12,
         ),
         itemCount: players.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return Container(
-              child: Row(
-                children: [
-                  Spacer(flex: 2),
-                  Expanded(child: Text("compas", textAlign: TextAlign.center)),
-                  Expanded(child: Text("roue", textAlign: TextAlign.center)),
-                  Expanded(child: Text("pierre", textAlign: TextAlign.center)),
-                  Expanded(child: Text("bonus", textAlign: TextAlign.center)),
-                ],
-              ),
+            return Row(
+              children: const [
+                Spacer(flex: 2),
+                Expanded(child: Text("compas", textAlign: TextAlign.center)),
+                Expanded(child: Text("roue", textAlign: TextAlign.center)),
+                Expanded(child: Text("pierre", textAlign: TextAlign.center)),
+                Expanded(child: Text("bonus", textAlign: TextAlign.center)),
+              ],
             );
           }
           return playerView(index - 1, players[index - 1]);
@@ -217,10 +217,10 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _listViewSorted(Widget Function(int, Player) playerView) {
-    List<Player> playersSorted = new List.from(players);
+    List<Player> playersSorted = List.from(players);
     playersSorted.sort((a, b) {
-      var ascore = a.totalScore(this.exLeaders, this.exCities, this.exArmada);
-      var bscore = b.totalScore(this.exLeaders, this.exLeaders, this.exArmada);
+      var ascore = a.totalScore(exLeaders, exCities, exArmada);
+      var bscore = b.totalScore(exLeaders, exLeaders, exArmada);
       if (ascore < bscore) {
         return 1;
       } else if (ascore > bscore) {
@@ -229,10 +229,10 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
         return -Comparable.compare(a.money, b.money);
       }
     });
-    return new Card(
+    return Card(
       margin: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
       child: ListView.separated(
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           color: Colors.black12,
         ),
         itemCount: playersSorted.length,
@@ -256,8 +256,8 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
               });
               Navigator.pop(context);
             },
-            decoration: new InputDecoration(
-              contentPadding: const EdgeInsets.all(16.0),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.all(16.0),
             ),
           ),
         );
@@ -266,54 +266,51 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerView(int index, Player player) {
-    return Container(
-      child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-        title: Text('${players[index].name}'),
-        trailing: Wrap(
-          spacing: 12,
-          children: <Widget>[
-            IconButton(
-              icon: new Icon(Icons.close),
-              onPressed: () {
-                setState(() => players.removeAt(index));
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _playerTotalView(int i, Player p) {
-    var score = p.totalScore(this.exLeaders, this.exCities, this.exArmada);
-    return new Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
-            ),
-            flex: 3,
-          ),
-          Expanded(
-            child: ListTile(
-              title: new Text(
-                '$score',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            flex: 1,
+    return ListTile(
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+      title: Text('${players[index].name}'),
+      trailing: Wrap(
+        spacing: 12,
+        children: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              setState(() => players.removeAt(index));
+            },
           ),
         ],
       ),
     );
   }
 
+  Widget _playerTotalView(int i, Player p) {
+    var score = p.totalScore(exLeaders, exCities, exArmada);
+    return Row(
+      children: [
+        Expanded(
+          child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+            title: Text('${p.name}'),
+          ),
+          flex: 3,
+        ),
+        Expanded(
+          child: ListTile(
+            title: Text(
+              '$score',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          flex: 1,
+        ),
+      ],
+    );
+  }
+
   Widget _playerWarView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.warScore,
@@ -328,7 +325,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerMoneyView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.money,
@@ -342,7 +339,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerWonderView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.wonderScore,
@@ -356,7 +353,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerCivilianView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.civilianScore,
@@ -370,7 +367,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerCommerceView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.commerceScore,
@@ -384,113 +381,103 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerScienceView(int i, Player p) {
-    return new Container(
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-              title: new Text('${p.name}'),
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
+            title: Text('${p.name}'),
+          ),
+        ),
+        Expanded(
+          child: ListTile(
+            title: TextField(
+              cursorWidth: 0,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              controller: TextEditingController()..text = '${p.compass}',
+              onChanged: (v) {
+                setState(() {
+                  p.compass = int.tryParse(v.isNotEmpty
+                          ? v.replaceFirst("${p.compass}", "")
+                          : "0") ??
+                      p.compass;
+                });
+              },
             ),
           ),
-          Expanded(
-            child: ListTile(
-              title: Container(
-                child: TextField(
-                  cursorWidth: 0,
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  controller: TextEditingController()..text = '${p.compass}',
-                  onChanged: (v) {
-                    setState(() {
-                      p.compass = int.tryParse(v.length > 0
-                              ? v.replaceFirst("${p.compass}", "")
-                              : "0") ??
-                          p.compass;
-                    });
-                  },
-                ),
-              ),
+        ),
+        Expanded(
+          child: ListTile(
+            title: TextField(
+              cursorWidth: 0,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              controller: TextEditingController()..text = '${p.gears}',
+              onChanged: (v) {
+                setState(() {
+                  p.gears = int.tryParse(v.isNotEmpty
+                          ? v.replaceFirst("${p.gears}", "")
+                          : "0") ??
+                      p.gears;
+                });
+              },
             ),
           ),
-          Expanded(
-            child: ListTile(
-              title: Container(
-                child: TextField(
-                  cursorWidth: 0,
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  controller: TextEditingController()..text = '${p.gears}',
-                  onChanged: (v) {
-                    setState(() {
-                      p.gears = int.tryParse(v.length > 0
-                              ? v.replaceFirst("${p.gears}", "")
-                              : "0") ??
-                          p.gears;
-                    });
-                  },
-                ),
-              ),
+        ),
+        Expanded(
+          child: ListTile(
+            title: TextField(
+              cursorWidth: 0,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              controller: TextEditingController()..text = '${p.tablets}',
+              onChanged: (v) {
+                setState(() {
+                  p.tablets = int.tryParse(v.isNotEmpty
+                          ? v.replaceFirst("${p.tablets}", "")
+                          : "0") ??
+                      p.tablets;
+                });
+              },
             ),
           ),
-          Expanded(
-            child: ListTile(
-              title: Container(
-                child: TextField(
-                  cursorWidth: 0,
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  controller: TextEditingController()..text = '${p.tablets}',
-                  onChanged: (v) {
-                    setState(() {
-                      p.tablets = int.tryParse(v.length > 0
-                              ? v.replaceFirst("${p.tablets}", "")
-                              : "0") ??
-                          p.tablets;
-                    });
-                  },
-                ),
-              ),
+        ),
+        Expanded(
+          child: ListTile(
+            title: TextField(
+              cursorWidth: 0,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              controller: TextEditingController()..text = '${p.wilds}',
+              onChanged: (v) {
+                setState(() {
+                  p.wilds = int.tryParse(v.isNotEmpty
+                          ? v.replaceFirst("${p.wilds}", "")
+                          : "0") ??
+                      p.wilds;
+                });
+              },
             ),
           ),
-          Expanded(
-            child: ListTile(
-              title: Container(
-                child: TextField(
-                  cursorWidth: 0,
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  controller: TextEditingController()..text = '${p.wilds}',
-                  onChanged: (v) {
-                    setState(() {
-                      p.wilds = int.tryParse(v.length > 0
-                              ? v.replaceFirst("${p.wilds}", "")
-                              : "0") ??
-                          p.wilds;
-                    });
-                  },
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _playerGuildeView(int i, Player p) {
     int max = 999;
-    if (this.exArmada) {
+    if (exArmada) {
       max = 10;
       p.guildeScore = min(p.guildeScore, 10);
     }
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.guildeScore,
@@ -505,7 +492,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerLeadersView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.leaders,
@@ -519,7 +506,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerCitiesView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.cities,
@@ -534,7 +521,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
 
   Widget _playerDebtView(int i, Player p) {
     if (p.debt > 0) p.debt = 0;
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.debt,
@@ -550,7 +537,7 @@ class ScoreSheetPageState extends State<ScoreSheetPage> {
   }
 
   Widget _playerArmadaView(int i, Player p) {
-    return new ListTilePlayerWithNumberSelector(
+    return ListTilePlayerWithNumberSelector(
       playerName: p.name!,
       selector: NumberSelector(
         value: p.armada,
